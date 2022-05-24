@@ -1,0 +1,5 @@
+id,first_name,last_name,birth_date,email,username,status_id,pword
+1,Kalon,Penagraph,1997-10-01,kdp131@txstate.edu,kdp131,1,Password
+2,Test1,Test1,1001-01-01,test1@txstate.edu,test1,2,Password1
+3,Test2,Test2,2002-02-02,test2@txstate.edu,test2,3,Password2
+4,Test3,Test3,3003-03-03,test3@txstate.edu,test3,2,Password3
