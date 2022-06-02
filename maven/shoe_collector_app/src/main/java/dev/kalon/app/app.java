@@ -32,24 +32,25 @@ public class app {
         String firstName = rs.getString("first_name");
         System.out.println(firstName);*/
 
-        //Get user by id    ******
+        //Get user by id    ******column name 'id' not found*****
         /*appUserDAO appuserDAO = new appUserDAOPostgres();
         appUsers b = appuserDAO.getAppUserById(1);
         System.out.println(b);*/
 
-        //Get all users
+       //Get all users      *****WORKS*****
         /*appUserDAO appuserdao = new appUserDAOPostgres();
         System.out.println(appuserdao.getAllAppUsers());*/
 
-        //Insert a new user ******
+        //Insert a new user     ******complains about number of arguments*****
         /*appUserDAO appuserdao = new appUserDAOPostgres();
-        System.out.println(appuserdao.createAppUser("Test99", "test99", 1997-10-01,"kdp131@txstate.edu", "kdp131", 1, "password"));*/
+        System.out.println(appuserdao.createAppUser
+                ("Tester", "tester", 1997-10-01,"kdp131@txstate.edu", "kdp131", 1, "password"));*/
 
-        //Delete a user by id   *******works but prints out true even if nothing is to be deleted
+        //Delete a user by id       *******WORKS but prints out true even if nothing is to be deleted*****
         /*appUserDAO appuserdao = new appUserDAOPostgres();
         System.out.println(appuserdao.deleteAppUserById(4));*/
 
-        //Update a user by id *******
+        //Update a user by id       *******not sure whats wrong, actual and formal argument list differ in length******
         /*appUserDAO appuserdao = new appUserDAOPostgres();
         System.out.println(appuserdao.updateAppUser("kalon", "penagraph", 1997-10-01, "kdp131@txstate.edu", "kdp131", 1, "password", 1));*/
     }

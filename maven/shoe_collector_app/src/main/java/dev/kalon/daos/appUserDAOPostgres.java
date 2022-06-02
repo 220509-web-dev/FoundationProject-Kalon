@@ -1,6 +1,5 @@
 package dev.kalon.daos;
 
-import com.sun.deploy.security.SelectableSecurityManager;
 import dev.kalon.entities.appUsers;
 import dev.kalon.utils.ConnectionUtil;
 
@@ -13,15 +12,15 @@ public class appUserDAOPostgres implements appUserDAO{
     public appUsers createAppUser(appUsers user) {
 
         try(Connection conn = ConnectionUtil.getConnection()) {
-            String sql = "insert into shoe_collection_app.app_users values (default,?,?,?,?,?,?,?,?)";
+            String sql = "insert into shoe_collection_app.app_users values (default,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(2, user.getFirstName());
-            ps.setString(3, user.getLastName());
-            ps.setDate(4, user.getBirthDate());
-            ps.setString(5, user.getEmail());
-            ps.setString(6, user.getUsername());
-            ps.setInt(7, user.getStatusId());
-            ps.setString(8, user.getPassword());
+            ps.setString(1, user.getFirstName());
+            ps.setString(2, user.getLastName());
+            ps.setDate(3, user.getBirthDate());
+            ps.setString(4, user.getEmail());
+            ps.setString(5, user.getUsername());
+            ps.setInt(6, user.getStatusId());
+            ps.setString(7, user.getPassword());
 
             ps.execute();
 
