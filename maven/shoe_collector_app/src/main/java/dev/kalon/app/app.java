@@ -32,11 +32,25 @@ public class app {
         String firstName = rs.getString("first_name");
         System.out.println(firstName);*/
 
-        /*appUserDAO appUserDAO = new appUserDAOPostgres();
-        appUsers b = appUserDAO.getAppUserById(1);
+        //Get user by id    ******
+        /*appUserDAO appuserDAO = new appUserDAOPostgres();
+        appUsers b = appuserDAO.getAppUserById(1);
         System.out.println(b);*/
 
-        appUserDAO appuserdao = new appUserDAOPostgres();
-        System.out.println(appuserdao.getAllAppUsers());
+        //Get all users
+        /*appUserDAO appuserdao = new appUserDAOPostgres();
+        System.out.println(appuserdao.getAllAppUsers());*/
+
+        //Insert a new user ******
+        /*appUserDAO appuserdao = new appUserDAOPostgres();
+        System.out.println(appuserdao.createAppUser("Test99", "test99", 1997-10-01,"kdp131@txstate.edu", "kdp131", 1, "password"));*/
+
+        //Delete a user by id   *******works but prints out true even if nothing is to be deleted
+        /*appUserDAO appuserdao = new appUserDAOPostgres();
+        System.out.println(appuserdao.deleteAppUserById(4));*/
+
+        //Update a user by id *******
+        /*appUserDAO appuserdao = new appUserDAOPostgres();
+        System.out.println(appuserdao.updateAppUser("kalon", "penagraph", 1997-10-01, "kdp131@txstate.edu", "kdp131", 1, "password", 1));*/
     }
 }

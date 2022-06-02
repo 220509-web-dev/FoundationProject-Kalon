@@ -75,8 +75,8 @@ public class appUsers {
         this.username = username;
     }
 
-    public String getStatusId() {
-        return statusId;
+    public int getStatusId() {
+        return Integer.parseInt(statusId);
     }
 
     public void setStatusId(String statusId) {

@@ -17,5 +17,5 @@ public interface appUserDAO {
     appUsers updateAppUser(appUsers user);
 
     //Delete
-    void deleteAppUserById(int id);
+    boolean deleteAppUserById(int id);
 }
