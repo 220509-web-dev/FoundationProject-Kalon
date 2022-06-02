@@ -7,7 +7,7 @@ public class appUsers {
     private int userId;
     private String firstName;
     private String lastName;
-    private Date birth_date;
+    private Date birthDate;
     private String email;
     private String username;
     private String statusId;
@@ -16,11 +16,11 @@ public class appUsers {
     public appUsers() {
     }
 
-    public appUsers(int userId, String firstName, String lastName, Date birth_date, String email, String username, String statusId, String password) {
+    public appUsers(int userId, String firstName, String lastName, Date birthDate, String email, String username, String statusId, String password) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.birth_date = birth_date;
+        this.birthDate = birthDate;
         this.email = email;
         this.username = username;
         this.statusId = statusId;
@@ -51,12 +51,12 @@ public class appUsers {
         this.lastName = lastName;
     }
 
-    public Date getBirth_date() {
-        return birth_date;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setBirth_date(Date birth_date) {
-        this.birth_date = birth_date;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getEmail() {
@@ -97,7 +97,7 @@ public class appUsers {
                 "userId=" + userId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", birth_date=" + birth_date +
+                ", birthDate=" + birthDate +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", statusId='" + statusId + '\'' +
