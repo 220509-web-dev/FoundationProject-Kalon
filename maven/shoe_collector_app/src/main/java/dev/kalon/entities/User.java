@@ -2,22 +2,21 @@ package dev.kalon.entities;
 
 import java.sql.Date;
 
-public class appUsers {
+public class User {
 
-    private int userId;
+    private int id;
     private String firstName;
     private String lastName;
     private Date birthDate;
     private String email;
     private String username;
-    private String statusId;
+    private int statusId;
     private String password;
 
-    public appUsers() {
+    public User() {
     }
 
-    public appUsers(int userId, String firstName, String lastName, Date birthDate, String email, String username, String statusId, String password) {
-        this.userId = userId;
+    public User(String firstName, String lastName, Date birthDate, String email, String username, int statusId, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
@@ -27,12 +26,22 @@ public class appUsers {
         this.password = password;
     }
 
-    public int getUserId() {
-        return userId;
+    public User(int id, String firstName, String lastName, Date birthDate, String email, String username, int statusId, String password) {
+        this(firstName, lastName, birthDate, email, username, statusId, password);
+        this.id = id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public User(String firstName, String lastName, Date birthDate, String email, String username, int statusId, String password, int id) {
+        this(firstName, lastName, birthDate, email, username, statusId, password);
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -76,11 +85,11 @@ public class appUsers {
     }
 
     public int getStatusId() {
-        return Integer.parseInt(statusId);
+        return Integer.parseInt(String.valueOf(statusId));
     }
 
     public void setStatusId(String statusId) {
-        this.statusId = statusId;
+        this.statusId = Integer.parseInt(statusId);
     }
 
     public String getPassword() {
@@ -94,7 +103,7 @@ public class appUsers {
     @Override
     public String toString() {
         return "appUsers{" +
-                "userId=" + userId +
+                "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", birthDate=" + birthDate +

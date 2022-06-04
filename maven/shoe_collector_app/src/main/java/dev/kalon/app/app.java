@@ -3,17 +3,14 @@ package dev.kalon.app;
 import com.github.lalyos.jfiglet.FigletFont;
 import dev.kalon.daos.appUserDAO;
 import dev.kalon.daos.appUserDAOPostgres;
-import dev.kalon.entities.appUsers;
-import dev.kalon.utils.ConnectionUtil;
+import dev.kalon.entities.User;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.Date;
+
 
 public class app {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
 
         String greeting = "Welcome to Shoe Collector!";
         try {
@@ -22,6 +19,8 @@ public class app {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        
 
         /*Connection conn = ConnectionUtil.getConnection();
 
@@ -32,26 +31,27 @@ public class app {
         String firstName = rs.getString("first_name");
         System.out.println(firstName);*/
 
-        //Get user by id    ******column name 'id' not found*****
+        //Get user by id
         /*appUserDAO appuserDAO = new appUserDAOPostgres();
-        appUsers b = appuserDAO.getAppUserById(1);
+        User b = appuserDAO.getById(1);
         System.out.println(b);*/
 
-       //Get all users      *****WORKS*****
+       //Get all users
         /*appUserDAO appuserdao = new appUserDAOPostgres();
-        System.out.println(appuserdao.getAllAppUsers());*/
+        System.out.println(appuserdao.getAllUsers());*/
 
-        //Insert a new user     ******complains about number of arguments*****
+        //Create a new user
         /*appUserDAO appuserdao = new appUserDAOPostgres();
-        System.out.println(appuserdao.createAppUser
-                ("Tester", "tester", 1997-10-01,"kdp131@txstate.edu", "kdp131", 1, "password"));*/
+        User newUser = new User("Test", "TEST", new Date(1989, 0, 1), "kdkd@yahoo.com", "kdp132443", 1, "passworddddd");
+        System.out.println(appuserdao.create(newUser));*/
 
         //Delete a user by id       *******WORKS but prints out true even if nothing is to be deleted*****
         /*appUserDAO appuserdao = new appUserDAOPostgres();
-        System.out.println(appuserdao.deleteAppUserById(4));*/
+        System.out.println(appuserdao.deleteUserById(4));*/
 
-        //Update a user by id       *******not sure whats wrong, actual and formal argument list differ in length******
+        //Update a user by id
         /*appUserDAO appuserdao = new appUserDAOPostgres();
-        System.out.println(appuserdao.updateAppUser("kalon", "penagraph", 1997-10-01, "kdp131@txstate.edu", "kdp131", 1, "password", 1));*/
+        User newUser = new User("Kalon", "Penagraph", new Date (97, 9, 1), "kdp131@txstate.edu", "kdp131", 1, "password", 1);
+        System.out.println(appuserdao.updateUser(newUser));*/
     }
 }

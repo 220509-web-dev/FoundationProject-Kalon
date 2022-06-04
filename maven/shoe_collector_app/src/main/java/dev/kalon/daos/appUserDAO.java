@@ -1,21 +1,23 @@
 package dev.kalon.daos;
 
-import dev.kalon.entities.appUsers;
+import dev.kalon.entities.User;
 
 import java.util.List;
 
 public interface appUserDAO {
 
     //create
-    appUsers createAppUser(appUsers user);
+    int create(User userToBeRegistered);
 
     //Read
-    appUsers getAppUserById(int id);
-    List<appUsers> getAllAppUsers();
+    User getById(int id);
+    List<User> getAllUsers();
+
+    User getByUsername(String username);
 
     //Update
-    appUsers updateAppUser(appUsers user);
+    User updateUser(User user);
 
     //Delete
-    boolean deleteAppUserById(int id);
+    boolean deleteUserById(int id);
 }
