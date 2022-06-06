@@ -1,6 +1,6 @@
 package dev.kalon.daos;
 
-import dev.kalon.entities.User;
+import dev.kalon.app.entities.User;
 
 import java.util.List;
 

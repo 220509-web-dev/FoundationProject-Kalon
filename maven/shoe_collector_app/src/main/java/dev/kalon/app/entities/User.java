@@ -1,6 +1,7 @@
-package dev.kalon.entities;
+package dev.kalon.app.entities;
 
 import java.sql.Date;
+import java.util.Objects;
 
 public class User {
 
@@ -34,6 +35,19 @@ public class User {
     public User(String firstName, String lastName, Date birthDate, String email, String username, int statusId, String password, int id) {
         this(firstName, lastName, birthDate, email, username, statusId, password);
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && statusId == user.statusId && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(birthDate, user.birthDate) && Objects.equals(email, user.email) && Objects.equals(username, user.username) && Objects.equals(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, birthDate, email, username, statusId, password);
     }
 
     public int getId() {

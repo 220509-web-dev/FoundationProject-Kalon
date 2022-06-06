@@ -1,12 +1,8 @@
 package dev.kalon.app;
 
 import com.github.lalyos.jfiglet.FigletFont;
-import dev.kalon.daos.appUserDAO;
-import dev.kalon.daos.appUserDAOPostgres;
-import dev.kalon.entities.User;
 
 import java.io.IOException;
-import java.sql.Date;
 
 
 public class app {

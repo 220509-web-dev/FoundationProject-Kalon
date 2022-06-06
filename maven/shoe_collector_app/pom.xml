@@ -33,7 +33,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.13.3</version>
+            <version>${jackson-version}</version>
         </dependency>
 
         <dependency>
@@ -53,7 +53,7 @@
                 <configuration>
                     <url>http://localhost:8080/manager/text</url>
                     <server>LocalTomcat</server>
-                    <path>/shoe_collector_app</path>
+                    <path>/shoe_collector</path>
                     <update>true</update>
                 </configuration>
             </plugin>
