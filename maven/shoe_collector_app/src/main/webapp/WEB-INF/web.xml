@@ -7,7 +7,7 @@
     <display-name>Shoe Collector</display-name>
 
     <listener>
-        <listener-class>dev.kalon.utils.ContextLoaderListener</listener-class>
+        <listener-class>dev.kalon.app.utils.ContextLoaderListener</listener-class>
     </listener>
 
 </web-app>

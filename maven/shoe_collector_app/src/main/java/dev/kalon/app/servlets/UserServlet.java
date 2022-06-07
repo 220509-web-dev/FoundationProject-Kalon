@@ -2,8 +2,8 @@ package dev.kalon.app.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.kalon.app.entities.User;
-import dev.kalon.daos.appUserDAO;
-import dev.kalon.daos.appUserDAOPostgres;
+import dev.kalon.app.daos.appUserDAO;
+import dev.kalon.app.daos.appUserDAOPostgres;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

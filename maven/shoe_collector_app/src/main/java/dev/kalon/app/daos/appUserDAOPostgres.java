@@ -1,7 +1,7 @@
-package dev.kalon.daos;
+package dev.kalon.app.daos;
 
 import dev.kalon.app.entities.User;
-import dev.kalon.utils.ConnectionFactory;
+import dev.kalon.app.utils.ConnectionFactory;
 
 import java.sql.*;
 import java.util.ArrayList;

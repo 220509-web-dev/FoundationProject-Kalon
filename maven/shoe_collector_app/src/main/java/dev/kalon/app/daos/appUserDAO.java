@@ -1,4 +1,4 @@
-package dev.kalon.daos;
+package dev.kalon.app.daos;
 
 import dev.kalon.app.entities.User;
 

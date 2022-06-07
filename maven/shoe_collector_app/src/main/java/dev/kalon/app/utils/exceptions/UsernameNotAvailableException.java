@@ -1,4 +1,4 @@
-package dev.kalon.utils.exceptions;
+package dev.kalon.app.utils.exceptions;
 
 public class UsernameNotAvailableException extends RuntimeException {
     public UsernameNotAvailableException() {

@@ -1,4 +1,4 @@
-package dev.kalon.utils;
+package dev.kalon.app.utils;
 
 import java.io.FileReader;
 import java.sql.Connection;

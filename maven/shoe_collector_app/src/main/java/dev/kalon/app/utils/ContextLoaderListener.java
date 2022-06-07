@@ -1,11 +1,10 @@
-package dev.kalon.utils;
+package dev.kalon.app.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.kalon.app.app;
 import dev.kalon.app.servlets.AuthServlet;
 import dev.kalon.app.servlets.UserServlet;
-import dev.kalon.daos.appUserDAO;
-import dev.kalon.daos.appUserDAOPostgres;
+import dev.kalon.app.daos.appUserDAO;
+import dev.kalon.app.daos.appUserDAOPostgres;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
