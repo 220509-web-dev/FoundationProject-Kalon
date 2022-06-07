@@ -25,6 +25,7 @@ public class UserServlet extends HttpServlet {
         this.mapper = mapper;
         this.userDAO = (appUserDAOPostgres) userDAO;
     }
+    
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {

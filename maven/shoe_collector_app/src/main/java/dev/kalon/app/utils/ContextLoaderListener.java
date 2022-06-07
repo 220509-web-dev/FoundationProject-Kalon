@@ -1,6 +1,7 @@
 package dev.kalon.app.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.kalon.app.services.AuthService;
 import dev.kalon.app.servlets.AuthServlet;
 import dev.kalon.app.servlets.UserServlet;
 import dev.kalon.app.daos.appUserDAO;
@@ -9,6 +10,7 @@ import dev.kalon.app.daos.appUserDAOPostgres;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.net.Authenticator;
 import java.time.LocalDateTime;
 
 public class ContextLoaderListener implements ServletContextListener {
@@ -18,8 +20,11 @@ public class ContextLoaderListener implements ServletContextListener {
         System.out.println("[LOG] - The servlet context was initialized at " + LocalDateTime.now());
 
         ObjectMapper mapper = new ObjectMapper();
+
         appUserDAO userDAO = new appUserDAOPostgres();
-        UserServlet userServlet = new UserServlet(mapper, userDAO);
+        AuthService authService = new AuthService(userDAO);
+
+        UserServlet userServlet = new UserServlet(mapper);
         AuthServlet authServlet = new AuthServlet(mapper);
 
         ServletContext context = sce.getServletContext();

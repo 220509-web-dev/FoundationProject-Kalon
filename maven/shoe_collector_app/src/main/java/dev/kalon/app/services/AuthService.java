@@ -13,6 +13,7 @@ public class AuthService {
         this.userDAO = userDAO;
     }
 
+
     public static void register(User userToBeRegistered) {
 
         if (userService.getUserByUsername(userToBeRegistered.getUsername()) != null) {
