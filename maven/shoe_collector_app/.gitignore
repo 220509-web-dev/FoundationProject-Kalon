@@ -5,3 +5,4 @@ target/
 *.jar
 *.war
 .DS_Store
+application.properties

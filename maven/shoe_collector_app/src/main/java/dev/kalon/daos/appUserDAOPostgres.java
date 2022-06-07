@@ -1,7 +1,7 @@
 package dev.kalon.daos;
 
 import dev.kalon.app.entities.User;
-import dev.kalon.utils.ConnectionUtil;
+import dev.kalon.utils.ConnectionFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,10 +11,10 @@ public class appUserDAOPostgres implements appUserDAO{
     @Override
     public int create(User userToBeRegistered) {
 
-        try(Connection conn = ConnectionUtil.getConnection()) {
-            String sql = "INSERT INTO shoe_collection_app.app_users (first_name, last_name, birth_date, email, username, status_id, password) " +
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            String sql = "INSERT INTO app_users (first_name, last_name, birth_date, email, username, status_id, password) " +
                     "VALUES (?,?,?,?,?,?,?) " +
-                    "RETURNING shoe_collection_app.app_users.id";
+                    "RETURNING app_users.id";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, userToBeRegistered.getFirstName());
             ps.setString(2, userToBeRegistered.getLastName());
@@ -42,8 +42,8 @@ public class appUserDAOPostgres implements appUserDAO{
     @Override
     public User getById(int id) {
         //try with resources. Automatically closes the connection once the try block finishes
-        try(Connection conn = ConnectionUtil.getConnection()) {
-            String sql = "SELECT * FROM shoe_collection_app.app_users WHERE id = ?";
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            String sql = "SELECT * FROM app_users WHERE id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery(); //JDBC actually interacts with the DB
@@ -74,8 +74,8 @@ public class appUserDAOPostgres implements appUserDAO{
     @Override
     public List<User> getAllUsers() {
 
-        try(Connection conn = ConnectionUtil.getConnection()) {
-            String sql = "SELECT * FROM shoe_collection_app.app_users";
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            String sql = "SELECT * FROM app_users";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
 
@@ -96,7 +96,7 @@ public class appUserDAOPostgres implements appUserDAO{
             return userList;
 
         } catch (SQLException exception) {
-            System.out.println("Something went wrong obtaining the users!");
+            System.out.println("Something went wrong obtaining all the users!");
             exception.printStackTrace();
         }
         return null;
@@ -104,8 +104,8 @@ public class appUserDAOPostgres implements appUserDAO{
 
     @Override
     public User getByUsername(String username) {
-        try (Connection conn = ConnectionUtil.getConnection()) {
-            String sql = "SELECT * FROM shoe_collection_app.app_users WHERE username = ?";
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            String sql = "SELECT * FROM app_users WHERE username = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
@@ -133,8 +133,8 @@ public class appUserDAOPostgres implements appUserDAO{
     @Override
     public User updateUser(User user) {
 
-        try(Connection conn = ConnectionUtil.getConnection()) {
-            String sql = "update shoe_collection_app.app_users set first_name = ?, last_name = ?, birth_date = ?, email = ?, username = ?, status_id = ?, password = ? where id = ?";
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            String sql = "UPDATE app_users SET first_name = ?, last_name = ?, birth_date = ?, email = ?, username = ?, status_id = ?, password = ? where id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, user.getFirstName());
             ps.setString(2, user.getLastName());
@@ -158,8 +158,8 @@ public class appUserDAOPostgres implements appUserDAO{
     @Override
     public boolean deleteUserById(int id) {
 
-        try(Connection conn = ConnectionUtil.getConnection()) {
-            String sql = "delete from shoe_collection_app.app_users where id = ?";
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            String sql = "DELETE FROM app_users WHERE id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();

@@ -2,21 +2,28 @@ package dev.kalon.app.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.kalon.app.entities.User;
+import dev.kalon.daos.appUserDAO;
+import dev.kalon.daos.appUserDAOPostgres;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.sql.Date;
+import java.io.InputStreamReader;
 import java.time.LocalDateTime;
+
 
 public class UserServlet extends HttpServlet {
 
     private final ObjectMapper mapper;
+    private final appUserDAOPostgres userDAO;
 
-    public UserServlet(ObjectMapper mapper) {
+
+    public UserServlet(ObjectMapper mapper, appUserDAO userDAO) {
         this.mapper = mapper;
+        this.userDAO = (appUserDAOPostgres) userDAO;
     }
 
     @Override
@@ -26,10 +33,38 @@ public class UserServlet extends HttpServlet {
         System.out.println("[LOG] - Request URI: " + req.getRequestURI());
         System.out.println("[LOG] - Request method: " + req.getMethod());
 
-        User newUser = new User(123, "code", "code", new Date(1997, 1, 9), "code@revature.com","codestar",1, "codestarpass");
-        String respPayload = mapper.writeValueAsString(newUser);
-        resp.setContentType("application/json");
-        resp.getWriter().write(respPayload);
+        if ((req.getRequestURI().equals("/shoe_collector/users/"))) {
+
+            appUserDAO appuserdao = new appUserDAOPostgres();
+            String respPayload = mapper.writeValueAsString(appuserdao.getAllUsers());
+            resp.setContentType("application/json");
+            resp.getWriter().write("All Users" + respPayload);
+
+        } else if ((req.getRequestURI().equals("/shoe_collector/users/id"))) {
+
+            BufferedReader payloadReader = new BufferedReader(new InputStreamReader(req.getInputStream()));
+
+            String line;
+            while ((line = payloadReader.readLine()) != null){
+                appUserDAO appuserdao = new appUserDAOPostgres();
+                String respPayload = mapper.writeValueAsString(appuserdao.getById(Integer.parseInt(line)));
+                resp.setContentType("application/json");
+                resp.getWriter().write("User Found! " + respPayload);
+            }
+
+        } else if ((req.getRequestURI().equals("/shoe_collector/users/un"))) {
+
+            BufferedReader payloadReader = new BufferedReader(new InputStreamReader(req.getInputStream()));
+
+            String line;
+            while ((line = payloadReader.readLine()) != null) {
+                appUserDAO appuserdao = new appUserDAOPostgres();
+                String respPayload = mapper.writeValueAsString(appuserdao.getByUsername(line));
+                resp.setContentType("application/json");
+                resp.getWriter().write("User Found! " + respPayload);
+            }
+
+        } else throw new RuntimeException ("Error connecting to database.");
     }
 
     @Override
@@ -45,11 +80,17 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+
+        System.out.println("[LOG] - User Servlet received a request at " + LocalDateTime.now());
+        System.out.println("[LOG] - Request URI: " + req.getRequestURI());
+        System.out.println("[LOG] - Request method: " + req.getMethod());
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+
+        System.out.println("[LOG] - User Servlet received a request at " + LocalDateTime.now());
+        System.out.println("[LOG] - Request URI: " + req.getRequestURI());
+        System.out.println("[LOG] - Request method: " + req.getMethod());
     }
 }
