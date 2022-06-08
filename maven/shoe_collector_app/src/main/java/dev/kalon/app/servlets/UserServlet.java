@@ -1,20 +1,19 @@
 package dev.kalon.app.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.kalon.app.entities.User;
 import dev.kalon.app.daos.AppUserDAO;
 import dev.kalon.app.daos.AppUserDAOPostgres;
+import dev.kalon.app.entities.User;
 import dev.kalon.app.services.UserService;
 import dev.kalon.app.utils.exceptions.BadRequestException;
+import dev.kalon.app.utils.exceptions.InvalidUsernameException;
 import dev.kalon.app.utils.exceptions.ResourceNotFoundException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 
 
@@ -72,17 +71,25 @@ public class UserServlet extends HttpServlet {
             //Find by Username
         } else if ((req.getRequestURI().equals("/shoe_collector/users/un"))) {
 
-            BufferedReader payloadReader = new BufferedReader(new InputStreamReader(req.getInputStream()));
+            try {
 
-            String line;
-            while ((line = payloadReader.readLine()) != null) {
-                AppUserDAO appuserdao = new AppUserDAOPostgres();
-                String respPayload = mapper.writeValueAsString(appuserdao.getByUsername(line));
+                String username = req.getParameter("un");
+                User foundUser = userService.getUserByUsername(username);
+                String respPayload = mapper.writeValueAsString(foundUser);
                 resp.setContentType("application/json");
                 resp.getWriter().write(respPayload);
-            }
 
-        } else throw new RuntimeException ("Error connecting to database.");
+            } catch (InvalidUsernameException e ) {
+                resp.setStatus(400);
+                resp.getWriter().write(e.getMessage());
+            } catch (ResourceNotFoundException e) {
+                resp.setStatus(404);
+                resp.getWriter().write(e.getMessage());
+            } catch (Exception e ) {
+                resp.setStatus(500);
+                resp.getWriter().write("Please check application logs");
+            }
+        }
     }
 
     @Override
