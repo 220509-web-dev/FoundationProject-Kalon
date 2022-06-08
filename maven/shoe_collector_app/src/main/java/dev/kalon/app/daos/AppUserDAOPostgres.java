@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class appUserDAOPostgres implements appUserDAO{
+public class AppUserDAOPostgres implements AppUserDAO {
     @Override
     public int create(User userToBeRegistered) {
 

@@ -1,20 +1,20 @@
 package dev.kalon.app.services;
 
-import dev.kalon.app.daos.appUserDAO;
+import dev.kalon.app.daos.AppUserDAO;
 import dev.kalon.app.entities.User;
 import dev.kalon.app.utils.exceptions.InvalidCredentialsException;
 import dev.kalon.app.utils.exceptions.UsernameNotAvailableException;
 
 public class AuthService {
 
-    private final appUserDAO userDAO;
+    private final UserService userService;
 
-    public AuthService(appUserDAO userDAO){
-        this.userDAO = userDAO;
+    public AuthService(UserService userService){
+        this.userService = userService;
     }
 
 
-    public static void register(User userToBeRegistered) {
+    public void register(User userToBeRegistered) {
 
         if (userService.getUserByUsername(userToBeRegistered.getUsername()) != null) {
 
@@ -24,7 +24,6 @@ public class AuthService {
         userService.insert(userToBeRegistered);
     }
 
-    UserService userService = new UserService();
 
     public User login(String username, String password) {
 

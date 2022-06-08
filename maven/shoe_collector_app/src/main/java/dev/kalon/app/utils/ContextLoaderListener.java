@@ -1,16 +1,16 @@
 package dev.kalon.app.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.kalon.app.daos.AppUserDAO;
+import dev.kalon.app.daos.AppUserDAOPostgres;
 import dev.kalon.app.services.AuthService;
+import dev.kalon.app.services.UserService;
 import dev.kalon.app.servlets.AuthServlet;
 import dev.kalon.app.servlets.UserServlet;
-import dev.kalon.app.daos.appUserDAO;
-import dev.kalon.app.daos.appUserDAOPostgres;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.net.Authenticator;
 import java.time.LocalDateTime;
 
 public class ContextLoaderListener implements ServletContextListener {
@@ -21,13 +21,14 @@ public class ContextLoaderListener implements ServletContextListener {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        appUserDAO userDAO = new appUserDAOPostgres();
-        AuthService authService = new AuthService(userDAO);
-
-        UserServlet userServlet = new UserServlet(mapper);
-        AuthServlet authServlet = new AuthServlet(mapper);
+        AppUserDAO userDAO = new AppUserDAOPostgres();
+        UserService userService = new UserService(userDAO);
+        AuthService authService = new AuthService(userService);
+        AuthServlet authServlet = new AuthServlet(authService, mapper);
+        UserServlet userServlet = new UserServlet(mapper, userService, userDAO);
 
         ServletContext context = sce.getServletContext();
+
         context.addServlet("UserServlet", userServlet).addMapping("/users/*");
         context.addServlet("AuthServlet", authServlet).addMapping("/auth");
     }

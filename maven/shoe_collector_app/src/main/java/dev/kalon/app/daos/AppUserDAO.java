@@ -4,7 +4,7 @@ import dev.kalon.app.entities.User;
 
 import java.util.List;
 
-public interface appUserDAO {
+public interface AppUserDAO {
 
     //create
     int create(User userToBeRegistered);

@@ -28,12 +28,12 @@ public class AuthServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        BufferedReader reder = req.getReader();
+        BufferedReader reader = req.getReader();
 
         String line;
         StringBuilder stringBuilder = new StringBuilder();
 
-        while ((line = reder.readLine()) != null){
+        while ((line = reader.readLine()) != null){
             stringBuilder.append(line);
         }
         String body = stringBuilder.toString();
@@ -77,5 +77,15 @@ public class AuthServlet extends HttpServlet {
         } else {
             resp.setStatus(404);
         }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+
+        if (session != null) {
+            session.invalidate();
+        }
+        resp.setStatus(204);
     }
 }

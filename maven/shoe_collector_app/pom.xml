@@ -15,7 +15,6 @@
         <jackson-version>2.13.3</jackson-version>
     </properties>
 
-
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.github.lalyos/jfiglet -->
         <dependency>
