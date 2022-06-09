@@ -6,6 +6,10 @@
 
     <display-name>Shoe Collector</display-name>
 
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
     <listener>
         <listener-class>dev.kalon.app.utils.ContextLoaderListener</listener-class>
     </listener>

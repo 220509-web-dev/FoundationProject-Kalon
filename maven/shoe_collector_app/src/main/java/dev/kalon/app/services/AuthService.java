@@ -1,6 +1,6 @@
 package dev.kalon.app.services;
 
-import dev.kalon.app.daos.AppUserDAO;
+import dev.kalon.app.daos.AppUserDAOPostgres;
 import dev.kalon.app.entities.User;
 import dev.kalon.app.utils.exceptions.InvalidCredentialsException;
 import dev.kalon.app.utils.exceptions.UsernameNotAvailableException;
@@ -8,6 +8,8 @@ import dev.kalon.app.utils.exceptions.UsernameNotAvailableException;
 public class AuthService {
 
     private final UserService userService;
+
+
 
     public AuthService(UserService userService){
         this.userService = userService;

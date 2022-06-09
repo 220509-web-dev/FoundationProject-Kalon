@@ -2,12 +2,12 @@ package dev.kalon.app.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.kalon.app.daos.AppUserDAO;
-import dev.kalon.app.daos.AppUserDAOPostgres;
 import dev.kalon.app.entities.User;
 import dev.kalon.app.services.UserService;
 import dev.kalon.app.utils.exceptions.BadRequestException;
 import dev.kalon.app.utils.exceptions.InvalidUsernameException;
 import dev.kalon.app.utils.exceptions.ResourceNotFoundException;
+import dev.kalon.app.utils.exceptions.UsernameNotAvailableException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,13 +22,13 @@ public class UserServlet extends HttpServlet {
     private final ObjectMapper mapper;
 
     private final UserService userService;
-    private final AppUserDAOPostgres userDAO;
+    private final AppUserDAO userDAO;
 
 
     public UserServlet(ObjectMapper mapper, UserService userService, AppUserDAO userDAO) {
         this.mapper = mapper;
         this.userService = userService;
-        this.userDAO = (AppUserDAOPostgres) userDAO;
+        this.userDAO = userDAO;
     }
 
 
@@ -46,7 +46,7 @@ public class UserServlet extends HttpServlet {
             resp.setContentType("application/json");
             resp.getWriter().write(respPayload);
 
-            //Find by ID
+            //Find user by ID
         } else if ((req.getRequestURI().equals("/shoe_collector/users/id"))) {
 
             try {
@@ -68,7 +68,7 @@ public class UserServlet extends HttpServlet {
                 resp.getWriter().write("Please check application logs");
             }
 
-            //Find by Username
+            //Find user by Username
         } else if ((req.getRequestURI().equals("/shoe_collector/users/un"))) {
 
             try {
@@ -92,6 +92,7 @@ public class UserServlet extends HttpServlet {
         }
     }
 
+    //Create a new user and persist to the database
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -99,11 +100,34 @@ public class UserServlet extends HttpServlet {
         System.out.println("[LOG] - Request URI: " + req.getRequestURI());
         System.out.println("[LOG] - Request method: " + req.getMethod());
         try {
-            User newUser = mapper.readValue(req.getInputStream(), User.class);
-            System.out.println(newUser);
-        } catch (Exception e){
 
-            e.printStackTrace();
+            User userToBeRegistered = mapper.readValue(req.getInputStream(), User.class);
+            System.out.println(userToBeRegistered);
+
+            if (userToBeRegistered == null
+                    || userToBeRegistered.getFirstName() == null
+                    || userToBeRegistered.getLastName() == null
+                    || userToBeRegistered.getBirthDate() == null
+                    || userToBeRegistered.getUsername() == null
+                    || userToBeRegistered.getPassword() == null
+                    || userToBeRegistered.equals("")
+                    || userToBeRegistered.getFirstName().equals("")
+                    || userToBeRegistered.getLastName().equals("")
+                    || userToBeRegistered.getBirthDate().equals("")
+                    || userToBeRegistered.getUsername().equals("")
+                    || userToBeRegistered.getPassword().equals("")
+                    || userToBeRegistered.getStatusId() < 1
+                    || userToBeRegistered.getStatusId() > 3) {
+                throw new BadRequestException("Provided user data was invalid. First name, last name, birth date, username, status id, and password must not be null or empty");
+            }
+            userDAO.create(userToBeRegistered);
+            resp.setStatus(201);
+            resp.getWriter().write("User created successfully!");
+            return;
+
+        } catch (UsernameNotAvailableException e){
+            resp.setStatus(400);
+            resp.getWriter().write(e.getMessage());
         }
         resp.setStatus(204);
     }

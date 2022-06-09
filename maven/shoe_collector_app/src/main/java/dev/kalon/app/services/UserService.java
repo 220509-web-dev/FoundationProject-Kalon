@@ -78,5 +78,8 @@ public class UserService {
     }
 
     public void insert(User userToBeRegistered) {
+
     }
+
+
 }
