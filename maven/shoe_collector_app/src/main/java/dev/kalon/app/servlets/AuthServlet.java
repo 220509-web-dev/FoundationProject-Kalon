@@ -37,12 +37,13 @@ public class AuthServlet extends HttpServlet {
             stringBuilder.append(line);
         }
         String body = stringBuilder.toString();
+        System.out.println("body: " + body);
 
         User userCredentials = objectMapper.readValue(body, User.class);
 
         String uri = req.getRequestURI().replace("/shoe_collector/auth", "");
 
-        if (uri.equals("register")) {
+        if (uri.equals("/register")) {
 
             try {
                 authService.register(userCredentials);
@@ -55,8 +56,10 @@ public class AuthServlet extends HttpServlet {
                 PrintWriter writer = resp.getWriter();
                 writer.println("Username is already taken");
             }
-        } else if (uri.equals("login")) {
-
+        }
+        if (uri.equals("/login")) {
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            System.out.println(objectMapper.writeValueAsString(body));
             try {
 
                 User user = authService.login(userCredentials.getUsername(), userCredentials.getPassword());
