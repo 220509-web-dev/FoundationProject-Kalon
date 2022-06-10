@@ -55,11 +55,21 @@ public class AuthServlet extends HttpServlet {
                 resp.setStatus(400);
                 PrintWriter writer = resp.getWriter();
                 writer.println("Username is already taken");
+            } catch (InvalidCredentialsException e) {
+                e.printStackTrace();
+                resp.setStatus(400);
+                PrintWriter writer = resp.getWriter();
+                writer.write("Invalid input");
+                return;
+            } catch (Throwable t) {
+                t.printStackTrace();
+                resp.setStatus(500);
+                PrintWriter writer = resp.getWriter();
+                writer.println("Some error occurred");
             }
         }
         if (uri.equals("/login")) {
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            System.out.println(objectMapper.writeValueAsString(body));
+
             try {
 
                 User user = authService.login(userCredentials.getUsername(), userCredentials.getPassword());

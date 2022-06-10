@@ -1,6 +1,5 @@
 package dev.kalon.app.services;
 
-import dev.kalon.app.daos.AppUserDAOPostgres;
 import dev.kalon.app.entities.User;
 import dev.kalon.app.utils.exceptions.InvalidCredentialsException;
 import dev.kalon.app.utils.exceptions.UsernameNotAvailableException;
@@ -22,7 +21,10 @@ public class AuthService {
 
             throw new UsernameNotAvailableException("Username is already taken.");
         }
-
+        if (userToBeRegistered.getUsername().trim().length() < 5
+                || userToBeRegistered.getPassword().trim().length() < 8) {
+            throw new InvalidCredentialsException();
+        }
         userService.insert(userToBeRegistered);
     }
 

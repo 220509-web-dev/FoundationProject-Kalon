@@ -1,0 +1,30 @@
+body {
+margin: 1em 20%;
+font: italic 1.2em "copperplate", fantasy;
+text-decoration: overline;
+text-decoration-color: red;
+background-image: url("1231762.jpg");
+background-position: top;
+}
+
+#login-button{
+background-color: white;
+color: black;
+}
+
+#login-button:hover {
+  background-color: blue;
+  color: white;
+}
+
+#remember{
+padding: 3px
+}
+
+#est{
+text-decoration: underline;
+}
+
+#welcome{
+text-shadow: 2px 2px 5px red;
+}
